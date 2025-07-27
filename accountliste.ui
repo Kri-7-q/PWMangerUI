@@ -23,6 +23,23 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QLineEdit" name="edSearch"/>
+       </item>
+       <item>
+        <widget class="QToolButton" name="tbStartSearch">
+         <property name="text">
+          <string>&amp;Suchen</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
       <widget class="QTreeWidget" name="twAccountList">
        <property name="palette">
         <palette>
@@ -111,13 +128,6 @@
       <widget class="QPushButton" name="btnNew">
        <property name="text">
         <string>Neu</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btnSearch">
-       <property name="text">
-        <string>Suchen</string>
        </property>
       </widget>
      </item>
