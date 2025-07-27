@@ -1,29 +1,14 @@
 #ifndef SHOWACCOUNT_H
 #define SHOWACCOUNT_H
 
-#include <QWidget>
+#include "accountdialog.h"
 
-namespace Ui {
-class ShowAccount;
-}
-
-class QTreeWidgetItem;
-
-class ShowAccount : public QWidget
+class ShowAccount : public AccountDialog
 {
     Q_OBJECT
 
 public:
-    explicit ShowAccount(QWidget *parent = nullptr);
-    ~ShowAccount();
-
-    void setItemData(const QTreeWidgetItem* i);
-
-public slots:
-    void setPasswordToCLipboard();
-
-private:
-    Ui::ShowAccount *ui;
+    ShowAccount(QWidget *parent=nullptr);
 };
 
 #endif // SHOWACCOUNT_H

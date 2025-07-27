@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ShowAccount</class>
- <widget class="QWidget" name="ShowAccount">
+ <class>AccountDialog</class>
+ <widget class="QWidget" name="AccountDialog">
   <property name="geometry">
    <rect>
     <x>0</x>

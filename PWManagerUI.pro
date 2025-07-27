@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     Persistance/credentials.cpp \
     Persistance/sqlpersistance.cpp \
+    accountdialog.cpp \
     accountliste.cpp \
     accountwidgetitem.cpp \
     main.cpp \
@@ -20,15 +21,16 @@ SOURCES += \
 HEADERS += \
     Persistance/credentials.h \
     Persistance/sqlpersistance.h \
+    accountdialog.h \
     accountliste.h \
     accountwidgetitem.h \
     mainwindow.h \
     showaccount.h
 
 FORMS += \
+    accountdialog.ui \
     accountliste.ui \
-    mainwindow.ui \
-    showaccount.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
