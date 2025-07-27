@@ -31,7 +31,7 @@
         <widget class="QLineEdit" name="edSearch"/>
        </item>
        <item>
-        <widget class="QToolButton" name="tbStartSearch">
+        <widget class="QToolButton" name="btnStartSearch">
          <property name="text">
           <string>&amp;Suchen</string>
          </property>

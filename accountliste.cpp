@@ -1,20 +1,26 @@
 #include "accountliste.h"
+#include "Model/modelindexiterator.h"
 #include "Persistance/sqlpersistance.h"
-#include "accountwidgetitem.h"
+#include "Model/accountlistmodel.h"
+#include "SearchAccount/matchobject.h"
+#include "SearchAccount/matchstring.h"
+#include "Utility/sortlist.h"
 #include "mainwindow.h"
 #include "ui_accountliste.h"
+#include "Persistance/enumeration.h"
 
 #include <QSqlDatabase>
 #include <QSqlRecord>
 #include <QSqlQuery>
+#include <QStatusBar>
 
 AccountListe::AccountListe(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AccountListe)
 {
     ui->setupUi(this);
-    MainWindow *mainWindow = qobject_cast<MainWindow*>(parent);
-    connect(ui->btnShowCurrent, &QPushButton::clicked, mainWindow, &MainWindow::changeViewShowAccount);
+    connect(ui->btnShowCurrent, &QPushButton::clicked, getMainWin(), &MainWindow::changeViewShowAccount);
+    connect(ui->btnStartSearch, &QToolButton::clicked, this, &AccountListe::startSearch);
 }
 
 AccountListe::~AccountListe()
@@ -59,4 +65,38 @@ QModelIndex AccountListe::getCurrentSelectedItem() const
         return ui->twAccountList->selectionModel()->selectedIndexes().first();
 
     return {};
+}
+
+void AccountListe::startSearch(bool) const
+{
+    QString searchText = ui->edSearch->text();
+    if (searchText.length() < 4)
+    {
+        getMainWin()->statusBar()->showMessage("Für die Suche werden wenigstens vier Zeichen benötigt!", 5000);
+        return;
+    }
+    MatchString match(ui->edSearch->text());
+    SortList<MatchObject> sortList;
+    ModelIndexIterator indexIt( ui->twAccountList->model()->index(0, 0) );
+    do
+    {
+        QString text = indexIt.data(DBField::Provider).toString();
+        int matchResult = match.matchText(text);
+        if (matchResult)
+            sortList.insert(MatchObject(indexIt.currentRow(), matchResult));
+        match.reset();
+    } while (indexIt.nextRow());
+
+    if (sortList.isEmpty())
+    {
+        getMainWin()->statusBar()->showMessage("Nichts gefunden!", 5000);
+        return;
+    }
+    AccountListModel *model = static_cast<AccountListModel*>(ui->twAccountList->model());
+    model->filterWithSortList(sortList);
+}
+
+MainWindow *AccountListe::getMainWin() const
+{
+    return static_cast<MainWindow*>(parent());
 }

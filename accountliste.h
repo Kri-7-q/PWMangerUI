@@ -7,6 +7,7 @@
 namespace Ui {
 class AccountListe;
 }
+class MainWindow;
 
 class AccountListe : public QWidget
 {
@@ -18,6 +19,12 @@ public:
 
     void loadAccountList();
     QModelIndex getCurrentSelectedItem() const;
+
+public slots:
+    void startSearch(bool) const;
+
+private:
+    MainWindow* getMainWin() const;
 
 private:
     Ui::AccountListe *ui;

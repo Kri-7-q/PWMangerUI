@@ -1,5 +1,8 @@
 #include "accountlistmodel.h"
 
+#include "SearchAccount/matchobject.h"
+#include "Persistance/sqlpersistance.h"
+
 #include <QSqlRecord>
 
 class Private
@@ -69,7 +72,10 @@ QVariant AccountListModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
     if (role == Qt::DisplayRole)
-        return d->accountList_[index.row()].value(index.column());
+    {
+        QString field = SqlPersistance::_fieldNames[static_cast<DBField>(index.column())];
+        return d->accountList_[index.row()].value(field);
+    }
 
     return {};
 }
@@ -78,6 +84,19 @@ void AccountListModel::setContent(QList<QSqlRecord> &list)
 {
     beginResetModel();
     d->accountList_ = list;
+    endResetModel();
+}
+
+void AccountListModel::filterWithSortList(const SortList<MatchObject> &sortList)
+{
+    QList<QSqlRecord> tempList;
+    auto it = sortList.begin();
+    do
+    {
+        tempList << d->accountList_[it.data().index()];
+    } while(it.next());
+    beginResetModel();
+    d->accountList_ = tempList;
     endResetModel();
 }
 

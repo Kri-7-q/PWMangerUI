@@ -32,4 +32,3 @@ void MainWindow::changeViewShowAccountList()
     AccountListe *w = findChild<AccountListe*>("AccountListe");
     w->show();
 }
-

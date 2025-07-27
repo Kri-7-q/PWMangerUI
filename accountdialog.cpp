@@ -26,15 +26,15 @@ AccountDialog::~AccountDialog()
 void AccountDialog::setItemData(QModelIndex index)
 {
     ModelIndexIterator indexIt(index);
-    ui->edId->setText(indexIt.dataAndNextColumn().toString());
-    ui->edProvider->setText(indexIt.dataAndNextColumn().toString());
-    ui->edUsername->setText(indexIt.dataAndNextColumn().toString());
-    ui->edPassword->setText(indexIt.dataAndNextColumn().toString());
-    ui->edPasswdLength->setText(indexIt.dataAndNextColumn().toString());
-    ui->edPasswdDefinition->setText(indexIt.dataAndNextColumn().toString());
-    ui->edQuestion->setText(indexIt.dataAndNextColumn().toString());
-    ui->edAnswer->setText(indexIt.dataAndNextColumn().toString());
-    ui->edLastModified->setDateTime(indexIt.dataAndNextColumn().toDateTime());
+    ui->edId->setText(indexIt.data(DBField::Id).toString());
+    ui->edProvider->setText(indexIt.data(DBField::Provider).toString());
+    ui->edUsername->setText(indexIt.data(DBField::Username).toString());
+    ui->edPassword->setText(indexIt.data(DBField::Password).toString());
+    ui->edPasswdLength->setText(indexIt.data(DBField::PasswordLength).toString());
+    ui->edPasswdDefinition->setText(indexIt.data(DBField::PasswordDefinition).toString());
+    ui->edQuestion->setText(indexIt.data(DBField::Question).toString());
+    ui->edAnswer->setText(indexIt.data(DBField::Answer).toString());
+    ui->edLastModified->setDateTime(indexIt.data(DBField::LastModified).toDateTime());
 }
 
 /*

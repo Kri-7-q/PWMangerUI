@@ -6,11 +6,17 @@ ModelIndexIterator::ModelIndexIterator(const QModelIndex &index)
 
 }
 
-QVariant ModelIndexIterator::dataAndNextColumn()
+QVariant ModelIndexIterator::data(DBField field)
 {
-    QVariant data = index_.data();
-    auto model = index_.model();
-    index_ = model->index(index_.row(), index_.column()+1);
+    QModelIndex i = index_.model()->index(index_.row(), static_cast<int>(field));
 
-    return data;
+    return i.data();
+}
+
+bool ModelIndexIterator::nextRow()
+{
+    auto model = index_.model();
+    index_ = model->index(index_.row()+1, index_.column());
+
+    return index_.isValid();
 }

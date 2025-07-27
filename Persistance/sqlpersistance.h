@@ -3,10 +3,9 @@
 
 #include "credentials.h"
 #include "qsqldriver.h"
+#include "enumeration.h"
 
 #include <QSqlDatabase>
-
-enum class DBField { Id, Provider, Username, Password, PasswordLength, PasswordDefinition, Question, Answer, LastModified };
 
 class SqlPersistance
 {

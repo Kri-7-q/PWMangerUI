@@ -13,6 +13,9 @@ SOURCES += \
     Model/modelindexiterator.cpp \
     Persistance/credentials.cpp \
     Persistance/sqlpersistance.cpp \
+    SearchAccount/matchobject.cpp \
+    SearchAccount/matchstring.cpp \
+    Utility/range.cpp \
     accountdialog.cpp \
     accountliste.cpp \
     accountwidgetitem.cpp \
@@ -24,7 +27,12 @@ HEADERS += \
     Model/accountlistmodel.h \
     Model/modelindexiterator.h \
     Persistance/credentials.h \
+    Persistance/enumeration.h \
     Persistance/sqlpersistance.h \
+    SearchAccount/matchobject.h \
+    SearchAccount/matchstring.h \
+    Utility/range.h \
+    Utility/sortlist.h \
     accountdialog.h \
     accountliste.h \
     accountwidgetitem.h \

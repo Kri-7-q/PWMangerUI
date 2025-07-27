@@ -1,10 +1,12 @@
 #ifndef ACCOUNTLISTMODEL_H
 #define ACCOUNTLISTMODEL_H
 
+#include "Utility/sortlist.h"
 #include <QAbstractItemModel>
 
 class Private;
 class QSqlRecord;
+class MatchObject;
 
 class AccountListModel : public QAbstractItemModel
 {
@@ -27,6 +29,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     void setContent(QList<QSqlRecord>& list);
+    void filterWithSortList(const SortList<MatchObject> &sortList);
 
 private:
     Private *d;
