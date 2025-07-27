@@ -17,6 +17,7 @@ public:
     static QString sqlSelectStatement(const QSqlDatabase &db, const QString &tablename);
     static QString databaseError(const QSqlDatabase &db);
     static QVariant dataFromSqlResult(const QSqlRecord &result, DBField field);
+    static QHash<DBField, QString> _fieldNames;
 };
 
 #endif // SQLPERSISTANCE_H

@@ -1,8 +1,7 @@
 #include "accountdialog.h"
-#include "Persistance/sqlpersistance.h"
-#include "accountwidgetitem.h"
 #include "mainwindow.h"
 #include "ui_accountdialog.h"
+#include "Model/modelindexiterator.h"
 
 #include <QClipboard>
 
@@ -21,22 +20,21 @@ AccountDialog::~AccountDialog()
     delete ui;
 }
 
-
 /* Set Data to the View.
  * The QTreeWidgetItem contain whole data of a Account.
  */
-void AccountDialog::setItemData(const QTreeWidgetItem *i)
+void AccountDialog::setItemData(QModelIndex index)
 {
-    const AccountWidgetItem *item = static_cast<const AccountWidgetItem*>(i);
-    ui->edId->setText(SqlPersistance::dataFromSqlResult(item->getRecord(), DBField::Id).toString());
-    ui->edProvider->setText(SqlPersistance::dataFromSqlResult(item->getRecord(), DBField::Provider).toString());
-    ui->edUsername->setText(SqlPersistance::dataFromSqlResult(item->getRecord(), DBField::Username).toString());
-    ui->edPassword->setText(SqlPersistance::dataFromSqlResult(item->getRecord(), DBField::Password).toString());
-    ui->edPasswdLength->setText(SqlPersistance::dataFromSqlResult(item->getRecord(), DBField::PasswordLength).toString());
-    ui->edPasswdDefinition->setText(SqlPersistance::dataFromSqlResult(item->getRecord(), DBField::PasswordDefinition).toString());
-    ui->edQuestion->setText(SqlPersistance::dataFromSqlResult(item->getRecord(), DBField::Question).toString());
-    ui->edAnswer->setText(SqlPersistance::dataFromSqlResult(item->getRecord(), DBField::Answer).toString());
-    ui->edLastModified->setDateTime(SqlPersistance::dataFromSqlResult(item->getRecord(), DBField::LastModified).toDateTime());
+    ModelIndexIterator indexIt(index);
+    ui->edId->setText(indexIt.dataAndNextColumn().toString());
+    ui->edProvider->setText(indexIt.dataAndNextColumn().toString());
+    ui->edUsername->setText(indexIt.dataAndNextColumn().toString());
+    ui->edPassword->setText(indexIt.dataAndNextColumn().toString());
+    ui->edPasswdLength->setText(indexIt.dataAndNextColumn().toString());
+    ui->edPasswdDefinition->setText(indexIt.dataAndNextColumn().toString());
+    ui->edQuestion->setText(indexIt.dataAndNextColumn().toString());
+    ui->edAnswer->setText(indexIt.dataAndNextColumn().toString());
+    ui->edLastModified->setDateTime(indexIt.dataAndNextColumn().toDateTime());
 }
 
 /*

@@ -9,6 +9,8 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Model/accountlistmodel.cpp \
+    Model/modelindexiterator.cpp \
     Persistance/credentials.cpp \
     Persistance/sqlpersistance.cpp \
     accountdialog.cpp \
@@ -19,6 +21,8 @@ SOURCES += \
     showaccount.cpp
 
 HEADERS += \
+    Model/accountlistmodel.h \
+    Model/modelindexiterator.h \
     Persistance/credentials.h \
     Persistance/sqlpersistance.h \
     accountdialog.h \

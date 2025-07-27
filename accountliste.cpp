@@ -40,22 +40,23 @@ void AccountListe::loadAccountList()
         err += SqlPersistance::databaseError(db);
         ui->lbMessage->setText(err);
     }
+    QList<QSqlRecord> list;
     while (query.next())
     {
-        QSqlRecord r = query.record();
-        AccountWidgetItem *item = new AccountWidgetItem(r);
-        ui->twAccountList->addTopLevelItem(item);
+        list <<  query.record();
     }
+    AccountListModel *model = new AccountListModel;
+    model->setContent(list);
+    ui->twAccountList->setModel(model);
 }
 
 /*
  * Get the current selected Item of AccountList.
  */
-const QTreeWidgetItem *AccountListe::getCurrentSelectedItem() const
+QModelIndex AccountListe::getCurrentSelectedItem() const
 {
-    QList<QTreeWidgetItem*> itemList = ui->twAccountList->selectedItems();
-    if (itemList.isEmpty())
-        return nullptr;
+    if (ui->twAccountList->selectionModel()->hasSelection())
+        return ui->twAccountList->selectionModel()->selectedIndexes().first();
 
-    return itemList.first();
+    return {};
 }

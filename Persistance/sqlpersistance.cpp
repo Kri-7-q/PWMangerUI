@@ -10,6 +10,18 @@ SqlPersistance::SqlPersistance()
 
 }
 
+QHash<DBField, QString> SqlPersistance::_fieldNames = {
+    {DBField::Id, "id"},
+    {DBField::Provider, "provider"},
+    {DBField::Username, "username"},
+    {DBField::Password, "password"},
+    {DBField::PasswordLength, "passwordlength"},
+    {DBField::PasswordDefinition, "definedcharacter"},
+    {DBField::Question, "question"},
+    {DBField::Answer, "answer"},
+    {DBField::LastModified, "lastmodify"},
+};
+
 /*
  * Get a Database connection with given credentials.
  */
@@ -67,35 +79,5 @@ QString SqlPersistance::databaseError(const QSqlDatabase &db)
  */
 QVariant SqlPersistance::dataFromSqlResult(const QSqlRecord &result, DBField field)
 {
-    QVariant data;
-    switch (field)
-    {
-    case DBField::Id:
-        data = result.field("id").value();
-        break;
-    case DBField::Provider:
-        data = result.field("provider").value();
-        break;
-    case DBField::Username:
-        data = result.field("username").value();
-        break;
-    case DBField::Password:
-        data = result.field("password").value();
-        break;
-    case DBField::PasswordLength:
-        data = result.field("passwordlength").value();
-        break;
-    case DBField::PasswordDefinition:
-        data = result.field("definedcharacter").value();
-        break;
-    case DBField::Question:
-        data = result.field("question").value();
-        break;
-    case DBField::Answer:
-        data = result.field("answer").value();
-        break;
-    case DBField::LastModified:
-        data = result.field("lastmodify").value();
-    }
-    return data;
+    return result.value(_fieldNames[field]);
 }

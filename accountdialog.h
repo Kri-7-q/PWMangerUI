@@ -17,7 +17,7 @@ public:
     explicit AccountDialog(QWidget *parent = nullptr);
     ~AccountDialog();
 
-    void setItemData(const QTreeWidgetItem* i);
+    void setItemData(QModelIndex index);
 
 public slots:
     void setPasswordToCLipboard();

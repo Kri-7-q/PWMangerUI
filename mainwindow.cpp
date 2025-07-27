@@ -20,9 +20,9 @@ void MainWindow::changeViewShowAccount()
     AccountListe *cw = findChild<AccountListe*>("AccountListe");
     cw->hide();
     ShowAccount *w = findChild<ShowAccount*>("ShowAccount");
-    const QTreeWidgetItem *item = cw->getCurrentSelectedItem();
-    if (item)
-        w->setItemData(item);
+    QModelIndex index = cw->getCurrentSelectedItem();
+    if (index.isValid())
+        w->setItemData(index);
     w->show();
 }
 

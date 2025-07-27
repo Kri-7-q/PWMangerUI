@@ -17,7 +17,7 @@ public:
     ~AccountListe();
 
     void loadAccountList();
-    const QTreeWidgetItem* getCurrentSelectedItem() const;
+    QModelIndex getCurrentSelectedItem() const;
 
 private:
     Ui::AccountListe *ui;
