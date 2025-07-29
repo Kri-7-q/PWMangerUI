@@ -213,6 +213,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="btnSaveData">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Save</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="btnOK">
        <property name="text">
         <string>OK</string>

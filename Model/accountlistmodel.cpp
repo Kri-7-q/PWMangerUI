@@ -74,7 +74,7 @@ QVariant AccountListModel::data(const QModelIndex &index, int role) const
         return QVariant();
     if (role == Qt::DisplayRole)
     {
-        QString field = SqlPersistance::_fieldNames[static_cast<DBField>(index.column())];
+        QString field = SqlPersistance::dbFieldName(static_cast<DBField>(index.column()));
         return d->accountList_[index.row()].value(field);
     }
 

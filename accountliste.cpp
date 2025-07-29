@@ -15,12 +15,14 @@
 #include <QSqlQuery>
 #include <QStatusBar>
 
+
 AccountListe::AccountListe(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AccountListe)
 {
     ui->setupUi(this);
     connect(ui->btnShowCurrent, &QPushButton::clicked, [this]() { getMainWin()->changeViewFromTo(View::AccountList, View::ShowAccountDlg); });
+    connect(ui->btnNew, &QPushButton::clicked, [this]() { getMainWin()->changeViewFromTo(View::AccountList, View::NewAccountDlg); });
     connect(ui->btnStartSearch, &QToolButton::clicked, this, &AccountListe::startSearch);
     connect(ui->btnCancelSearch, &QToolButton::clicked, this, &AccountListe::cancelSearch);
     connect(ui->btnCopyPwd, &QPushButton::clicked, this, &AccountListe::copyPassword);
@@ -37,9 +39,9 @@ AccountListe::~AccountListe()
  */
 void AccountListe::loadAccountList()
 {
-    static Credentials c = Credentials::credentialsFromFile(Credentials::usersHomePath() + "/.pwmanager");
+    Credentials c = SqlPersistance::getCredentials();
     QSqlDatabase db = SqlPersistance::databaseWithCredentials(c);
-    QString stmt = SqlPersistance::sqlSelectStatement(db, "accountlist"/*c.value(Credentials::TableName)*/);
+    QString stmt = SqlPersistance::sqlSelectStatement(db, c.value(Credentials::Key::TableName));
     QSqlQuery query(db);
     if (! query.exec(stmt))
     {

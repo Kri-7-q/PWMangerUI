@@ -7,6 +7,7 @@ ShowAccount::ShowAccount(QWidget *parent)
     : AccountDialog(parent)
 {
     setObjectName("ShowAccount");
+    getUi()->btnSaveData->hide();
     MainWindow *mainWindow = qobject_cast<MainWindow*>(parent);
     connect(getUi()->btnOK, &QPushButton::clicked, [mainWindow]() { mainWindow->changeViewFromTo(View::ShowAccountDlg, View::AccountList); });
 }

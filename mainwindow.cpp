@@ -28,6 +28,9 @@ void MainWindow::changeViewFromTo(View from, View to)
     case View::ShowAccountDlg:
         showaccountdlg_->hide();
         break;
+    case View::NewAccountDlg:
+        newaccountdlg_->hide();
+        break;
     default:
         break;
     }
@@ -45,6 +48,10 @@ void MainWindow::changeViewFromTo(View from, View to)
     }
     case View::AccountList:
         accountlist_->show();
+        break;
+    case View::NewAccountDlg:
+        newaccountdlg_->show();
+        break;
     default:
         break;
     }

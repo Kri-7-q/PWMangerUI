@@ -11,11 +11,15 @@ CONFIG += c++17
 SOURCES += \
     Model/accountlistmodel.cpp \
     Model/modelindexiterator.cpp \
+    PasswordGenerator/characterdefinition.cpp \
+    PasswordGenerator/characterdefinitionlist.cpp \
+    PasswordGenerator/pwgenerator.cpp \
     Persistance/credentials.cpp \
     Persistance/sqlpersistance.cpp \
     SearchAccount/matchobject.cpp \
     SearchAccount/matchstring.cpp \
     Utility/range.cpp \
+    Utility/stringlistjoiner.cpp \
     accountdialog.cpp \
     accountliste.cpp \
     main.cpp \
@@ -26,8 +30,12 @@ SOURCES += \
 HEADERS += \
     Model/accountlistmodel.h \
     Model/modelindexiterator.h \
+    PasswordGenerator/characterdefinition.h \
+    PasswordGenerator/characterdefinitionlist.h \
+    PasswordGenerator/pwgenerator.h \
     Persistance/credentials.h \
-    Persistance/enumapp.h \
+    Utility/stringlistjoiner.h \
+    enumapp.h \
     Persistance/enumeration.h \
     Persistance/sqlpersistance.h \
     SearchAccount/matchobject.h \
