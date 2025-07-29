@@ -32,10 +32,10 @@ QVariant AccountListModel::headerData(int section, Qt::Orientation orientation, 
         sectionName = "Id";
         break;
     case 1:
-        sectionName = "Provider";
+        sectionName = "Anbieter";
         break;
     case 2:
-        sectionName = "Username";
+        sectionName = "Benutzername";
     default:
         break;
     }
@@ -49,12 +49,13 @@ QModelIndex AccountListModel::index(int row, int column, const QModelIndex &) co
         return {};
     if (column < 0 || column >= d->accountList_[row].count())
         return {};
+
     return createIndex(row, column);
 }
 
 QModelIndex AccountListModel::parent(const QModelIndex&) const
 {
-    return {};
+    return {}; // Has just top level items.
 }
 
 int AccountListModel::rowCount(const QModelIndex &) const

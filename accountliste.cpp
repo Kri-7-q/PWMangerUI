@@ -9,6 +9,7 @@
 #include "ui_accountliste.h"
 #include "Persistance/enumeration.h"
 
+#include <QClipboard>
 #include <QSqlDatabase>
 #include <QSqlRecord>
 #include <QSqlQuery>
@@ -19,8 +20,10 @@ AccountListe::AccountListe(QWidget *parent) :
     ui(new Ui::AccountListe)
 {
     ui->setupUi(this);
-    connect(ui->btnShowCurrent, &QPushButton::clicked, getMainWin(), &MainWindow::changeViewShowAccount);
+    connect(ui->btnShowCurrent, &QPushButton::clicked, [this]() { getMainWin()->changeViewFromTo(View::AccountList, View::ShowAccountDlg); });
     connect(ui->btnStartSearch, &QToolButton::clicked, this, &AccountListe::startSearch);
+    connect(ui->btnCancelSearch, &QToolButton::clicked, this, &AccountListe::cancelSearch);
+    connect(ui->btnCopyPwd, &QPushButton::clicked, this, &AccountListe::copyPassword);
 }
 
 AccountListe::~AccountListe()
@@ -34,10 +37,9 @@ AccountListe::~AccountListe()
  */
 void AccountListe::loadAccountList()
 {
-    QString path = Credentials::usersHomePath() + "/.pwmanager";
-    Credentials c = Credentials::credentialsFromFile(path);
+    static Credentials c = Credentials::credentialsFromFile(Credentials::usersHomePath() + "/.pwmanager");
     QSqlDatabase db = SqlPersistance::databaseWithCredentials(c);
-    QString stmt = SqlPersistance::sqlSelectStatement(db, c.value(Credentials::TableName));
+    QString stmt = SqlPersistance::sqlSelectStatement(db, "accountlist"/*c.value(Credentials::TableName)*/);
     QSqlQuery query(db);
     if (! query.exec(stmt))
     {
@@ -54,6 +56,8 @@ void AccountListe::loadAccountList()
     AccountListModel *model = new AccountListModel;
     model->setContent(list);
     ui->twAccountList->setModel(model);
+    disconnect(ui->twAccountList->selectionModel(), &QItemSelectionModel::selectionChanged, this, &AccountListe::enableButtons);
+    connect(ui->twAccountList->selectionModel(), &QItemSelectionModel::selectionChanged, this, &AccountListe::enableButtons);
 }
 
 /*
@@ -67,6 +71,9 @@ QModelIndex AccountListe::getCurrentSelectedItem() const
     return {};
 }
 
+/*
+ * Start a search in Provider list with the given text.
+ */
 void AccountListe::startSearch(bool) const
 {
     QString searchText = ui->edSearch->text();
@@ -96,6 +103,42 @@ void AccountListe::startSearch(bool) const
     model->filterWithSortList(sortList);
 }
 
+/*
+ * Reset the QtreeView and search QLineEdit field.
+ */
+void AccountListe::cancelSearch(bool)
+{
+    loadAccountList();
+    ui->edSearch->clear();
+}
+
+/*
+ * Copy password from current selected entry into clipboard.
+ */
+void AccountListe::copyPassword(bool) const
+{
+    QModelIndex index = getCurrentSelectedItem();
+    if (!index.isValid())
+    {
+        getMainWin()->statusBar()->showMessage("Kein Eintrag selektiert!", 5000);
+        return;
+    }
+    ModelIndexIterator indexIt(index);
+    QApplication::clipboard()->setText(indexIt.data(DBField::Password).toString());
+}
+
+void AccountListe::enableButtons(const QItemSelection selected, const QItemSelection) const
+{
+    bool enable = !selected.isEmpty(); // ui->twAccountList->selectionModel()->hasSelection();
+    ui->btnShowCurrent->setEnabled(enable);
+    ui->btnCopyPwd->setEnabled(enable);
+    ui->btnDelete->setEnabled(enable);
+    ui->btnModify->setEnabled(enable);
+}
+
+/*
+ * Get a pointer to MainWindow.
+ */
 MainWindow *AccountListe::getMainWin() const
 {
     return static_cast<MainWindow*>(parent());

@@ -1,8 +1,10 @@
 #ifndef ACCOUNTLISTE_H
 #define ACCOUNTLISTE_H
 
-#include "qtreewidget.h"
+#include "enumapp.h"
+
 #include <QWidget>
+#include <QItemSelection>
 
 namespace Ui {
 class AccountListe;
@@ -22,6 +24,9 @@ public:
 
 public slots:
     void startSearch(bool) const;
+    void cancelSearch(bool);
+    void copyPassword(bool) const;
+    void enableButtons(const QItemSelection selected, const QItemSelection disselected) const;
 
 private:
     MainWindow* getMainWin() const;

@@ -1,5 +1,5 @@
-#ifndef SHOWACCOUNT_H
-#define SHOWACCOUNT_H
+#ifndef SHOWACCOUNTDLG_H
+#define SHOWACCOUNTDLG_H
 
 #include "accountdialog.h"
 
@@ -11,4 +11,4 @@ public:
     ShowAccount(QWidget *parent=nullptr);
 };
 
-#endif // SHOWACCOUNT_H
+#endif // SHOWACCOUNTDLG_H

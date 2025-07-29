@@ -12,7 +12,8 @@ enum class DBField
     PasswordDefinition,
     Question,
     Answer,
-    LastModified
+    LastModified,
+    UserId
 };
 
 

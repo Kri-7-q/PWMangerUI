@@ -1,7 +1,10 @@
 #include "mainwindow.h"
 #include "accountliste.h"
 #include "ui_mainwindow.h"
-#include "showaccount.h"
+#include "showaccountdlg.h"
+#include "newaccountdlg.h"
+
+#include <QModelIndex>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,20 +18,49 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::changeViewShowAccount()
+void MainWindow::changeViewFromTo(View from, View to)
 {
-    AccountListe *cw = findChild<AccountListe*>("AccountListe");
-    cw->hide();
-    ShowAccount *w = findChild<ShowAccount*>("ShowAccount");
-    QModelIndex index = cw->getCurrentSelectedItem();
-    if (index.isValid())
-        w->setItemData(index);
-    w->show();
+    // From
+    switch (from) {
+    case View::AccountList:
+        accountlist_->hide();
+        break;
+    case View::ShowAccountDlg:
+        showaccountdlg_->hide();
+        break;
+    default:
+        break;
+    }
+    // To
+    switch (to) {
+    case View::ShowAccountDlg:
+    {
+        QModelIndex index = accountlist_->getCurrentSelectedItem();
+        if (index.isValid())
+        {
+            showaccountdlg_->setItemData(index);
+            showaccountdlg_->show();
+        }
+        break;
+    }
+    case View::AccountList:
+        accountlist_->show();
+    default:
+        break;
+    }
 }
 
-void MainWindow::changeViewShowAccountList()
+void MainWindow::setAccountListe(AccountListe *w)
 {
-    findChild<ShowAccount*>("ShowAccount")->hide();
-    AccountListe *w = findChild<AccountListe*>("AccountListe");
-    w->show();
+    accountlist_ = w;
+}
+
+void MainWindow::setShowAccountDlg(ShowAccount *w)
+{
+    showaccountdlg_ = w;
+}
+
+void MainWindow::setNewAccountDlg(NewAccountDlg *w)
+{
+    newaccountdlg_ = w;
 }

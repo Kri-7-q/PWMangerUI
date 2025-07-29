@@ -18,6 +18,7 @@ public:
     ~AccountDialog();
 
     void setItemData(QModelIndex index);
+    Ui::AccountDialog* getUi() const { return ui; }
 
 public slots:
     void setPasswordToCLipboard();

@@ -20,6 +20,7 @@ QHash<DBField, QString> SqlPersistance::_fieldNames = {
     {DBField::Question, "question"},
     {DBField::Answer, "answer"},
     {DBField::LastModified, "lastmodify"},
+    {DBField::UserId, "userid"},
 };
 
 /*
@@ -50,7 +51,7 @@ QString SqlPersistance::sqlSelectStatement(const QSqlDatabase &db, const QString
     QSqlField field = record.field(index);
     record.remove(index);
     QSqlRecord whereRecord;
-    field.setValue(1);
+    field.setValue(1);          // Has to be fixed. Handles just one User.
     whereRecord.append(field);
     QString stmt = db.driver()->sqlStatement(QSqlDriver::SelectStatement, tablename, record, false);
     stmt += db.driver()->sqlStatement(QSqlDriver::WhereStatement, tablename, whereRecord, false);

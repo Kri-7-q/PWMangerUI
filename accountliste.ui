@@ -28,7 +28,22 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QLineEdit" name="edSearch"/>
+        <widget class="QLineEdit" name="edSearch">
+         <property name="placeholderText">
+          <string>Provider Suche</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="btnCancelSearch">
+         <property name="text">
+          <string>...</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../../../usr/share/icons/Humanity/actions/22/gtk-cancel.svg</normaloff>../../../../usr/share/icons/Humanity/actions/22/gtk-cancel.svg</iconset>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QToolButton" name="btnStartSearch">
@@ -83,6 +98,9 @@
      </property>
      <item>
       <widget class="QPushButton" name="btnShowCurrent">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Anzeigen</string>
        </property>
@@ -97,6 +115,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnModify">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Ändern</string>
        </property>
@@ -104,8 +125,21 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnDelete">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Account löschen</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnCopyPwd">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Passwort kopieren</string>
        </property>
       </widget>
      </item>

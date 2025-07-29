@@ -18,15 +18,16 @@ SOURCES += \
     Utility/range.cpp \
     accountdialog.cpp \
     accountliste.cpp \
-    accountwidgetitem.cpp \
     main.cpp \
     mainwindow.cpp \
-    showaccount.cpp
+    newaccountdlg.cpp \
+    showaccountdlg.cpp
 
 HEADERS += \
     Model/accountlistmodel.h \
     Model/modelindexiterator.h \
     Persistance/credentials.h \
+    Persistance/enumapp.h \
     Persistance/enumeration.h \
     Persistance/sqlpersistance.h \
     SearchAccount/matchobject.h \
@@ -35,9 +36,9 @@ HEADERS += \
     Utility/sortlist.h \
     accountdialog.h \
     accountliste.h \
-    accountwidgetitem.h \
     mainwindow.h \
-    showaccount.h
+    newaccountdlg.h \
+    showaccountdlg.h
 
 FORMS += \
     accountdialog.ui \

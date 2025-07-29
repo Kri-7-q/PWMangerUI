@@ -11,7 +11,6 @@ AccountDialog::AccountDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     MainWindow *mainWindow = qobject_cast<MainWindow*>(parent);
-    connect(ui->btnOK, &QPushButton::clicked, mainWindow, &MainWindow::changeViewShowAccountList);
     connect(ui->btnCopyPasswd, &QPushButton::clicked, this, &AccountDialog::setPasswordToCLipboard);
 }
 
