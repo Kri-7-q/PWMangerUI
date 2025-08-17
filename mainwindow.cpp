@@ -3,6 +3,7 @@
 #include "ui_mainwindow.h"
 #include "showaccountdlg.h"
 #include "newaccountdlg.h"
+#include "modifyaccountdlg.h"
 
 #include <QModelIndex>
 
@@ -31,6 +32,9 @@ void MainWindow::changeViewFromTo(View from, View to)
     case View::NewAccountDlg:
         newaccountdlg_->hide();
         break;
+    case View::ModifyAccountDlg:
+        modifyaccountdlg_->hide();
+        break;
     default:
         break;
     }
@@ -38,12 +42,7 @@ void MainWindow::changeViewFromTo(View from, View to)
     switch (to) {
     case View::ShowAccountDlg:
     {
-        QModelIndex index = accountlist_->getCurrentSelectedItem();
-        if (index.isValid())
-        {
-            showaccountdlg_->setItemData(index);
-            showaccountdlg_->show();
-        }
+        showAccountDlg(showaccountdlg_);
         break;
     }
     case View::AccountList:
@@ -52,8 +51,23 @@ void MainWindow::changeViewFromTo(View from, View to)
     case View::NewAccountDlg:
         newaccountdlg_->show();
         break;
+    case View::ModifyAccountDlg:
+    {
+        showAccountDlg(modifyaccountdlg_);
+        break;
+    }
     default:
         break;
+    }
+}
+
+void MainWindow::showAccountDlg(AccountDialog *dlg)
+{
+    QModelIndex index = accountlist_->getCurrentSelectedItem();
+    if (index.isValid())
+    {
+        dlg->setItemData(index);
+        dlg->show();
     }
 }
 
@@ -70,4 +84,9 @@ void MainWindow::setShowAccountDlg(ShowAccount *w)
 void MainWindow::setNewAccountDlg(NewAccountDlg *w)
 {
     newaccountdlg_ = w;
+}
+
+void MainWindow::setModifyAccountDlg(ModifyAccountDlg *w)
+{
+    modifyaccountdlg_ = w;
 }

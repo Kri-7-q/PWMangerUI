@@ -7,7 +7,7 @@
 
 #include <QStatusBar>
 #include <QSqlQuery>
-#include <QSqlError>>
+#include <QSqlError>
 
 NewAccountDlg::NewAccountDlg(QWidget *parent)
     : AccountDialog(parent)
@@ -32,15 +32,13 @@ void NewAccountDlg::generatePassword(bool) const
     QString passwd = generator.passwordFromDefinition(length, definition);
     if (generator.hasError())
     {
-        MainWindow *mainWindow = qobject_cast<MainWindow*>(parent());
-//        mainWindow->statusBar()->showMessage("Es muss ein Wert für die Passwortlänge und eine Definition der Zeichen eingegeben werden!");
-        mainWindow->statusBar()->showMessage(generator.errorMessage());
+        statusBarMsg("Es muss ein Wert für die Passwortlänge und eine Definition der Zeichen eingegeben werden!");
         return;
     }
     getUi()->edPassword->setText(passwd);
 }
 
-void NewAccountDlg::saveData() const
+void NewAccountDlg::saveData()
 {
     QSqlRecord record;
     SqlPersistance::setDataToRecord(record, DBField::Provider, getUi()->edProvider->text());
@@ -55,24 +53,24 @@ void NewAccountDlg::saveData() const
     SqlPersistance::setDataToRecord(record, DBField::UserId, 1);
     if (record.count() < 1)
     {
-        MainWindow *mainWindow = qobject_cast<MainWindow*>(parent());
-        mainWindow->statusBar()->showMessage("Es gibt nichts zu speichern!");
+        statusBarMsg("Es gibt nichts zu speichern!");
         return;
     }
     SqlPersistance::setDataToRecord(record, DBField::LastModified, QVariant(QDateTime::currentDateTime()));
     QString stmt = SqlPersistance::sqlInsertStatement(record);
-    qDebug() << stmt;
     QSqlDatabase db = SqlPersistance::databaseWithCredentials(SqlPersistance::getCredentials());
     QSqlQuery query(db);
     if (!query.prepare(stmt))
     {
-        qDebug() << query.lastError().text();
+        statusBarMsg(query.lastError().text());
         return;
     }
     for (int i=0; i<record.count(); ++i)
         query.bindValue(":"+record.fieldName(i), record.value(i));
     if (!query.exec())
     {
-        qDebug() << query.lastError().text();
+        statusBarMsg(query.lastError().text());
+        return;
     }
+    clear();
 }

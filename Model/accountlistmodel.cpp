@@ -81,6 +81,20 @@ QVariant AccountListModel::data(const QModelIndex &index, int role) const
     return {};
 }
 
+bool AccountListModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (!index.isValid())
+        return false;
+    if (role == Qt::DisplayRole)
+    {
+        QString field = SqlPersistance::dbFieldName(static_cast<DBField>(index.column()));
+        d->accountList_[index.row()].setValue(field, value);
+        emit dataChanged(index, index, {role});
+    }
+
+    return true;
+}
+
 void AccountListModel::setContent(QList<QSqlRecord> &list)
 {
     beginResetModel();

@@ -9,6 +9,8 @@
 class AccountListe;
 class ShowAccount;
 class NewAccountDlg;
+class ModifyAccountDlg;
+class AccountDialog;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,14 +25,17 @@ public:
     ~MainWindow();
 
     void changeViewFromTo(View from, View to);
+    void showAccountDlg(AccountDialog *dlg);
     void setAccountListe(AccountListe *w);
     void setShowAccountDlg(ShowAccount *w);
     void setNewAccountDlg(NewAccountDlg *w);
+    void setModifyAccountDlg(ModifyAccountDlg *w);
 
 private:
     Ui::MainWindow *ui;
     QPointer<AccountListe> accountlist_ = nullptr;
     QPointer<ShowAccount> showaccountdlg_ = nullptr;
     QPointer<NewAccountDlg> newaccountdlg_ = nullptr;
+    QPointer<ModifyAccountDlg> modifyaccountdlg_ = nullptr;
 };
 #endif // MAINWINDOW_H

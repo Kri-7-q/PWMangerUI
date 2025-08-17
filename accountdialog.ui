@@ -233,6 +233,20 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>edId</tabstop>
+  <tabstop>edProvider</tabstop>
+  <tabstop>edUsername</tabstop>
+  <tabstop>edPassword</tabstop>
+  <tabstop>edPasswdLength</tabstop>
+  <tabstop>edPasswdDefinition</tabstop>
+  <tabstop>edQuestion</tabstop>
+  <tabstop>edAnswer</tabstop>
+  <tabstop>edLastModified</tabstop>
+  <tabstop>btnCopyPasswd</tabstop>
+  <tabstop>btnSaveData</tabstop>
+  <tabstop>btnOK</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

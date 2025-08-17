@@ -11,6 +11,7 @@ public:
     explicit ModelIndexIterator(const QModelIndex& index);
 
     QVariant data(DBField field);
+    void setData(DBField field, QVariant &val);
     bool nextRow();
     int currentRow() const { return index_.row(); }
     bool hasNext() const { return index_.isValid(); }

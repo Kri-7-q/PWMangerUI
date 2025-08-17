@@ -24,6 +24,7 @@ SOURCES += \
     accountliste.cpp \
     main.cpp \
     mainwindow.cpp \
+    modifyaccountdlg.cpp \
     newaccountdlg.cpp \
     showaccountdlg.cpp
 
@@ -45,6 +46,7 @@ HEADERS += \
     accountdialog.h \
     accountliste.h \
     mainwindow.h \
+    modifyaccountdlg.h \
     newaccountdlg.h \
     showaccountdlg.h
 

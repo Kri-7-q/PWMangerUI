@@ -5,7 +5,8 @@
 enum class View {
     AccountList,
     ShowAccountDlg,
-    NewAccountDlg
+    NewAccountDlg,
+    ModifyAccountDlg
 };
 
 

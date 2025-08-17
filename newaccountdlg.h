@@ -9,7 +9,7 @@ public:
     NewAccountDlg(QWidget *parent=nullptr);
 
     void generatePassword(bool) const;
-    void saveData() const;
+    void saveData();
 };
 
 #endif // NEWACCOUNTDLG_H

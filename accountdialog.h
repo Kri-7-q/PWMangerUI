@@ -1,7 +1,10 @@
 #ifndef ACCOUNTDIALOG_H
 #define ACCOUNTDIALOG_H
 
+#include "Persistance/enumeration.h"
+
 #include <QWidget>
+#include <QModelIndex>
 
 namespace Ui {
 class AccountDialog;
@@ -22,6 +25,13 @@ public:
 
 public slots:
     void setPasswordToCLipboard();
+
+protected:
+    void clear();
+    void statusBarMsg(const QString &msg, int msec=5000) const;
+    QVariant fieldValue(DBField field) const;
+
+    QModelIndex index_;
 
 private:
     Ui::AccountDialog *ui;

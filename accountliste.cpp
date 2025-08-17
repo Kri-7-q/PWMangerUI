@@ -23,6 +23,7 @@ AccountListe::AccountListe(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->btnShowCurrent, &QPushButton::clicked, [this]() { getMainWin()->changeViewFromTo(View::AccountList, View::ShowAccountDlg); });
     connect(ui->btnNew, &QPushButton::clicked, [this]() { getMainWin()->changeViewFromTo(View::AccountList, View::NewAccountDlg); });
+    connect(ui->btnModify, &QPushButton::clicked, [this]() {getMainWin()->changeViewFromTo(View::AccountList, View::ModifyAccountDlg); });
     connect(ui->btnStartSearch, &QToolButton::clicked, this, &AccountListe::startSearch);
     connect(ui->btnCancelSearch, &QToolButton::clicked, this, &AccountListe::cancelSearch);
     connect(ui->btnCopyPwd, &QPushButton::clicked, this, &AccountListe::copyPassword);
@@ -42,6 +43,7 @@ void AccountListe::loadAccountList()
     Credentials c = SqlPersistance::getCredentials();
     QSqlDatabase db = SqlPersistance::databaseWithCredentials(c);
     QString stmt = SqlPersistance::sqlSelectStatement(db, c.value(Credentials::Key::TableName));
+    qDebug() << "Select-Statement:  " << stmt;
     QSqlQuery query(db);
     if (! query.exec(stmt))
     {
